@@ -441,6 +441,11 @@ export default function createPostGraphQLHttpRequestHandler (options) {
         // If we have enabled the query log for the Http handler, use that.
         // tslint:disable-next-line no-console
         console.log(`${chalk[errorCount === 0 ? 'green' : 'red'](`${errorCount} error(s)`)} ${pgRole != null ? `as ${chalk.magenta(pgRole)} ` : ''}in ${chalk.grey(`${ms}ms`)} :: ${prettyQuery}`)
+
+        // If desired, show errors on console for monitoring
+        if (options.logErrors && result && result.errors) {
+          console.log(`\t${JSON.stringify(result.errors)}`)
+        }
       }
     }
   }
